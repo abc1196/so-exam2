@@ -8,6 +8,7 @@
 **Nombre:** Alejandro Bueno Cardona  
 **Código:** A00335472  
 **Correo:** alejandro.bueno at correo.icesi.edu.co  
+**URL Git:** https://github.com/abc1196/so-exam2.git  
 
 ### Punto 3
 
@@ -48,8 +49,14 @@ Para convertir los procesos en servicios, se ejecutan los siguientes comandos, c
  # ExecStart = /home/operativos/parcialDos/procesoUno.service
  # CPUQuota=50%
  ```
-Los dos servicios se habilitan y se observa que cada uno no consume más del 50% de la CPU:
-
+Los dos servicios se habilitan utilizando los siguientes comandos:
+```
+# systemctl enable procesoUno.service
+# systemctl enable procesoDos.service
+# systemctl daemon-realod
+# systemctl start procesoUno.service
+# systemctl start procesoUno.service
+```
  
 | Ejecución como Scripts |Ejecución como Servicios |
 | --- | --- |
@@ -69,6 +76,32 @@ Los dos servicios se habilitan y se observa que cada uno no consume más del 50%
  * Se deben ejecutar dos procesos
  * Uno de los procesos tendrá el 25% de la CPU mientras que el otro tendrá el 75% de la CPU
  * Cuando uno de los procesos se cancela, el que continua ejecutándose debe poder llegar al 100% de la CPU
+ 
+ ### Punto 4
+ 
+ Para esta prueba, se utiliza máquina del punto anterior, con un solo núcleo de la CPU. También, se tienen los dos procesos: el procesoUno.sh, con 75% de la CPU; el procesoDos.sh, con el 25% de la CPU. Esta situación se logra utilizando CPUShares, que se agrega en el archivo .service de cada proceso. 
+ ```
+CPUShares=750 //Para procesoUno.service
+CPUShares=250 //Para procesoDos.service
+```
+Ambos archivos quedan de la siguiente manera:
+
+![][9]
+
+Los dos servicios se habilitan utilizando los siguientes comandos:
+```
+# systemctl enable procesoUno.service
+# systemctl enable procesoDos.service
+# systemctl daemon-realod
+# systemctl start procesoUno.service
+# systemctl start procesoUno.service
+```
+![][10]
+ 
+ En efecto, el procesoUno consume no más del 75% y el procesoDos no excede del 25% de la CPU. Para continuar con la prueba, se mata el procesoDos, cuyo PID es 9310. Después, el procesoUno consume como máximo el 100% de la CPU.
+ 
+ ![][11]
+ 
 5. Por medio de las evidencias obtenidas en los puntos anteriores y de fuentes de consulta en Internet, elabore las definiciones para los grupos de control CPUQuota y CPUShares, además concluya acerca de cuando es preferible usar un recurso de control sobre otro (20%)
 6. El informe debe ser entregado en formato pdf a través del moodle y el informe en formato README.md debe ser subido a un repositorio de github. El repositorio de github debe ser un fork de https://github.com/ICESI-Training/so-exam2 y para la entrega deberá hacer un Pull Request (PR) respetando la estructura definida. El código fuente y la url de github deben incluirse en el informe (10%)  
 
@@ -83,3 +116,6 @@ https://github.com/ICESI/so-containers
 [6]: images/p26.PNG
 [7]: images/p27.PNG
 [8]: images/p28.PNG
+[9]: images/p29.PNG
+[10]: images/p30.PNG
+[11]: images/p31.PNG
