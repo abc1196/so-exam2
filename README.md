@@ -56,14 +56,25 @@ Para convertir los procesos en servicios, se ejecutan los siguientes comandos, c
  
  ![][5]
  
- De cada archivo, destacan dos líneas:
+ De cada archivo, destacan dos líneas: la primera, asocia el servicio con su script correspondiente; La segunda, asigna la CPUQuota a 50%, es decir, el máximo uso del núcleo de la CPU, es del 50%. 
  ```
  # ExecStart = /home/operativos/parcialDos/procesoUno.service
  # CPUQuota=50%
  ```
- La primera, asocia el servicio con su script correspondiente. La segunda, asigna la CPUQuota a 50%, es decir, el máximo uso del núcleo de la CPU, es del 50%.
+Los dos servicios se habilitan y se observa que cada uno no consume más del 50% de la CPU:
+
  
+| Ejecución como Scripts |Ejecución como Servicios |
+| --- | --- |
+| ![][6] | ![][7] |
+
+ En la tabla, se puede observar que los servicios si llegan a consumir como máximo el 50% de la CPU. En cambio, la ejecución como scripts le permite consumir a cada proceso, aproximadamente, el 40-50% de la CPU.
  
+ Para confirmar que un solo proceso consume no más del 50%, se mata el proceso con PID=7797, que esta asociado a procesoDos.service.
+ 
+ ![][8]
+ 
+ Como se puede observar, el procesoUno se encuentra dentro del límite establecido.
  
 4.  Realice una prueba de concepto empleando systemd y el recurso de control CPUShares teniendo en cuenta los requerimientos que se describen a continuación. Incluya evidencias del funcionamiento de lo solicitado (30%):
  * Las pruebas se realizaran sobre un solo núcleo de la CPU
@@ -81,3 +92,6 @@ https://github.com/ICESI/so-containers
 [3]: images/p23.PNG
 [4]: images/p24.PNG
 [5]: images/p25.PNG
+[6]: images/p26.PNG
+[7]: images/p27.PNG
+[8]: images/p28.PNG
