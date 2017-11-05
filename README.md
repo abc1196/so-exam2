@@ -5,10 +5,6 @@
 **Tema:** Namespaces, CGroups, LXC
 **Correo:** daniel.barragan at correo.icesi.edu.co
 
-**Nombre:** Alejandro Bueno Cardona  
-**Código:** A00335472  
-**Correo:** alejandro.bueno at correo.icesi.edu.co  
-
 ### Objetivos
 * Comprender los fundamentos que dan origen a las tecnologías de contenedores virtuales
 * Conocer y emplear funcionalidades del sistema operativo para asignar recursos a procesos
@@ -30,53 +26,6 @@ El segundo parcial del curso sistemas operativos trata sobre el manejo de namesp
  * Cada proceso debe poder acceder solo al 50% de la CPU
  * Cuando uno de los procesos se cancela, el que continua ejecutándose no debe acceder a mas del 50% de la CPU
  
- Para empezar, se configura la máquina virtual **so-centos7-intro** con un solo núcleo de la CPU:
- 
- ![][1]
- 
- Ahora, se deben ejecutar dos procesos. Para esto, se crea el directio **parcialDos** en el usuario operativos. Luego, se crean los siguientes procesos:
- 
- ![][2]
- 
- Al ejecutar cada proceso individualmente, se observa que consumen más del 80% del núcleo de CPU:
- 
-| procesoUno.sh | procesoDos.sh |
-| --- | --- |
-| ![][3] | ![][4] |
-
-Para convertir los procesos en servicios, se ejecutan los siguientes comandos, como se ven en la guía de so-processes:
-```
-# cd /etc/systemd/system
-# touch procesoUno.service
-# chmod 777 procesoUno.service
-# touch procesoDos.service
-# chmod 777 procesoDos.service
-```
- Con el editor vi, se editan los dos servicios. Cada archivo queda de la siguiente manera:
- 
- ![][5]
- 
- De cada archivo, destacan dos líneas: la primera, asocia el servicio con su script correspondiente; La segunda, asigna la CPUQuota a 50%, es decir, el máximo uso del núcleo de la CPU, es del 50%. 
- ```
- # ExecStart = /home/operativos/parcialDos/procesoUno.service
- # CPUQuota=50%
- ```
-Los dos servicios se habilitan y se observa que cada uno no consume más del 50% de la CPU:
-
- 
-| Ejecución como Scripts |Ejecución como Servicios |
-| --- | --- |
-| ![][6] | ![][7] |
-
- En la tabla, se puede observar que los servicios si llegan a consumir como máximo el 50% de la CPU. En cambio, la ejecución como scripts le permite consumir a cada proceso, aproximadamente, el 40-50% de la CPU.
- 
- Para confirmar que un solo proceso consume no más del 50%, se mata el proceso con PID=7796, que esta asociado a procesoDos.service.
- 
- ![][8]
- 
- Como se puede observar, el procesoUno se encuentra dentro del límite establecido.
- 
- 
 4.  Realice una prueba de concepto empleando systemd y el recurso de control CPUShares teniendo en cuenta los requerimientos que se describen a continuación. Incluya evidencias del funcionamiento de lo solicitado (30%):
  * Las pruebas se realizaran sobre un solo núcleo de la CPU
  * Se deben ejecutar dos procesos
@@ -87,12 +36,3 @@ Los dos servicios se habilitan y se observa que cada uno no consume más del 50%
 
 ### Referencias
 https://github.com/ICESI/so-containers
-
-[1]: images/p21.PNG
-[2]: images/p22.PNG
-[3]: images/p23.PNG
-[4]: images/p24.PNG
-[5]: images/p25.PNG
-[6]: images/p26.PNG
-[7]: images/p27.PNG
-[8]: images/p28.PNG
