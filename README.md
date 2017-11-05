@@ -70,11 +70,12 @@ Los dos servicios se habilitan y se observa que cada uno no consume más del 50%
 
  En la tabla, se puede observar que los servicios si llegan a consumir como máximo el 50% de la CPU. En cambio, la ejecución como scripts le permite consumir a cada proceso, aproximadamente, el 40-50% de la CPU.
  
- Para confirmar que un solo proceso consume no más del 50%, se mata el proceso con PID=7797, que esta asociado a procesoDos.service.
+ Para confirmar que un solo proceso consume no más del 50%, se mata el proceso con PID=7796, que esta asociado a procesoDos.service.
  
  ![][8]
  
  Como se puede observar, el procesoUno se encuentra dentro del límite establecido.
+ 
  
 4.  Realice una prueba de concepto empleando systemd y el recurso de control CPUShares teniendo en cuenta los requerimientos que se describen a continuación. Incluya evidencias del funcionamiento de lo solicitado (30%):
  * Las pruebas se realizaran sobre un solo núcleo de la CPU
