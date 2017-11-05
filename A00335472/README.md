@@ -69,14 +69,7 @@ Los dos servicios se habilitan utilizando los siguientes comandos:
  ![][8]
  
  Como se puede observar, el procesoUno se encuentra dentro del límite establecido.
- 
- 
-4.  Realice una prueba de concepto empleando systemd y el recurso de control CPUShares teniendo en cuenta los requerimientos que se describen a continuación. Incluya evidencias del funcionamiento de lo solicitado (30%):
- * Las pruebas se realizaran sobre un solo núcleo de la CPU
- * Se deben ejecutar dos procesos
- * Uno de los procesos tendrá el 25% de la CPU mientras que el otro tendrá el 75% de la CPU
- * Cuando uno de los procesos se cancela, el que continua ejecutándose debe poder llegar al 100% de la CPU
- 
+
  ### Punto 4
  
  Para esta prueba, se utiliza máquina del punto anterior, con un solo núcleo de la CPU. También, se tienen los dos procesos: el procesoUno.sh, con 75% de la CPU; el procesoDos.sh, con el 25% de la CPU. Esta situación se logra utilizando CPUShares, que se agrega en el archivo .service de cada proceso. 
